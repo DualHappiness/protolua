@@ -1,5 +1,6 @@
 #include "protolua.h"
 #include <list>
+#include <string>
 
 using namespace google::protobuf;
 using namespace google::protobuf::compiler;

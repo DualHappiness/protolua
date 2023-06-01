@@ -1,4 +1,5 @@
 #include "protolua.h"
+#include <string>
 
 using namespace google::protobuf;
 using namespace google::protobuf::compiler;
@@ -112,7 +113,7 @@ bool decode_single(const Message& message, const FieldDescriptor* field, lua_Sta
         break;
     case FieldDescriptor::CPPTYPE_STRING:
         {
-            string value = reflection->GetString(message, field);
+            std::string value = reflection->GetString(message, field);
             lua_pushlstring(L, value.c_str(), value.size());
         }
         break;
@@ -160,7 +161,7 @@ bool decode_multiple(const Message& message, const FieldDescriptor* field, lua_S
         break;
     case FieldDescriptor::CPPTYPE_STRING:
         {
-            string value = reflection->GetRepeatedString(message, field, index);
+            std::string value = reflection->GetRepeatedString(message, field, index);
             lua_pushlstring(L, value.c_str(), value.size());
         }
         break;

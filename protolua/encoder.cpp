@@ -127,7 +127,7 @@ bool encode_single(Message* message, const FieldDescriptor* field, lua_State* L,
         {
             size_t length = 0;
             const char* bytes = lua_tolstring(L, index, &length);
-            reflection->SetString(message, field, string(bytes, length));
+            reflection->SetString(message, field, std::string(bytes, length));
         }
         break;
     case FieldDescriptor::CPPTYPE_MESSAGE:
@@ -176,7 +176,7 @@ bool encode_multiple(Message* message, const FieldDescriptor* field, lua_State* 
         {
             size_t length = 0;
             const char* bytes = lua_tolstring(L, index, &length);
-            reflection->AddString(message, field, string(bytes, length));
+            reflection->AddString(message, field, std::string(bytes, length));
         }
         break;
     case FieldDescriptor::CPPTYPE_MESSAGE:
@@ -228,7 +228,7 @@ bool proto_encode(const char* proto, lua_State* L, int index, char* output, size
     }
     else 
     {
-        string output; // push to lua stack
+        std::string output; // push to lua stack
         PROTO_DO(message->SerializeToString(&output));
         lua_pushlstring(L, output.c_str(), output.size());
     }
@@ -261,7 +261,7 @@ bool proto_pack(const char* proto, lua_State* L, int start, int end, char* outpu
     }
     else 
     {
-        string output; // push to lua stack
+        std::string output; // push to lua stack
         PROTO_DO(message->SerializeToString(&output));
         lua_pushlstring(L, output.c_str(), output.size());
     }
